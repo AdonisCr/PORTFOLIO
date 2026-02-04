@@ -1,4 +1,3 @@
-// import React from "react";
 import { useTheme } from "../contexts/ThemeContext";
 import {
   ArrowDown,
@@ -25,7 +24,7 @@ const Hero = () => {
     <section
       id="hero"
       className={`min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 relative overflow-hidden ${
-        isDarkMode ? 'bg-slate-900' : 'bg-gradient-to-b from-slate-50 via-gray-50 to-white'
+        isDarkMode ? 'bg-slate-900' : 'bg-slate-50'
       }`}
     >
       {/* Éléments décoratifs en arrière-plan - INVERSÉS par rapport à Skills */}
@@ -40,12 +39,12 @@ const Hero = () => {
 
       <div className="w-full max-w-[90%] lg:max-w-7xl mx-auto h-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Image Section - À gauche - EFFET IMMERSIF */}
+
           <div className="flex justify-center lg:justify-start order-1">
             <div className="relative w-full max-w-[400px] lg:max-w-[500px]">
-              {/* Gradient background card - Vous sortez de ce cadre */}
+
               <div className="relative">
-                {/* Background glow animé - Multi-couches */}
+
                 <div className={`absolute inset-0 rounded-3xl blur-3xl ${
                   isDarkMode 
                     ? 'bg-gradient-to-br from-purple-500/30 via-pink-500/30 to-purple-500/30 animate-pulse'
@@ -78,7 +77,7 @@ const Hero = () => {
                       : 'bg-gradient-to-br from-purple-300/50 via-pink-300/50 to-purple-300/50 opacity-40'
                   }`}></div>
 
-                  {/* Votre image - SANS FOND - qui dépasse du cadre */}
+                  {/* image SANS FOND*/}
                   <div className="relative h-[520px] lg:h-[680px] flex items-end justify-center px-4 pb-0">
                     {/* <img
                       src={profileImage}
@@ -92,7 +91,7 @@ const Hero = () => {
                     /> */}
                   </div>
 
-                  {/* Gradient overlay en bas pour fondre avec le background */}
+
                   <div
                     className={`absolute bottom-0 left-0 right-0 h-32 ${
                       isDarkMode
