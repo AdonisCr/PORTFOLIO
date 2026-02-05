@@ -47,20 +47,20 @@ const Hero = () => {
       <div className="w-full max-w-[90%] lg:max-w-7xl mx-auto h-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Image Section - À gauche */}
-          <div className="flex justify-center lg:justify-start order-1">
+          <div className="flex justify-center lg:justify-start order-1 items-center">
             <div className="relative w-full max-w-[500px] lg:max-w-[650px] group">
               <div className="relative">
-                {/* Glow effects directement derrière l'image */}
+                {/* Glow effects réduits derrière l'image */}
                 <div className={`absolute inset-0 blur-3xl transition-all duration-500 ${
                   isDarkMode 
-                    ? 'bg-gradient-to-br from-purple-500/50 via-pink-500/50 to-purple-500/50 group-hover:from-purple-500/70 group-hover:via-pink-500/70 group-hover:to-purple-500/70'
-                    : 'bg-gradient-to-br from-purple-300/40 via-pink-300/40 to-purple-300/40 group-hover:from-purple-300/60 group-hover:via-pink-300/60 group-hover:to-purple-300/60'
+                    ? 'bg-gradient-to-br from-purple-500/25 via-pink-500/25 to-purple-500/25 group-hover:from-purple-500/35 group-hover:via-pink-500/35 group-hover:to-purple-500/35'
+                    : 'bg-gradient-to-br from-purple-300/20 via-pink-300/20 to-purple-300/20 group-hover:from-purple-300/30 group-hover:via-pink-300/30 group-hover:to-purple-300/30'
                 } animate-pulse`}></div>
                 
                 <div className={`absolute inset-0 blur-2xl transition-all duration-500 ${
                   isDarkMode
-                    ? 'bg-gradient-to-tl from-blue-500/40 via-purple-500/40 to-pink-500/40 group-hover:from-blue-500/60 group-hover:via-purple-500/60 group-hover:to-pink-500/60'
-                    : 'bg-gradient-to-tl from-blue-200/30 via-purple-200/30 to-pink-200/30 group-hover:from-blue-200/50 group-hover:via-purple-200/50 group-hover:to-pink-200/50'
+                    ? 'bg-gradient-to-tl from-blue-500/20 via-purple-500/20 to-pink-500/20 group-hover:from-blue-500/30 group-hover:via-purple-500/30 group-hover:to-pink-500/30'
+                    : 'bg-gradient-to-tl from-blue-200/15 via-purple-200/15 to-pink-200/15 group-hover:from-blue-200/25 group-hover:via-purple-200/25 group-hover:to-pink-200/25'
                 }`}></div>
 
                 {/* Container pour l'image avec gradient fade au bas */}
@@ -79,11 +79,11 @@ const Hero = () => {
                     }}
                   />
 
-                  {/* Gradient fade progressif au bas pour camoufler la limite */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-48 pointer-events-none ${
+                  {/* Gradient fade AUGMENTÉ au bas pour bien camoufler */}
+                  <div className={`absolute bottom-0 left-0 right-0 h-64 pointer-events-none ${
                     isDarkMode
-                      ? 'bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent'
-                      : 'bg-gradient-to-t from-slate-50 via-slate-50/80 to-transparent'
+                      ? 'bg-gradient-to-t from-slate-900 via-slate-900/90 via-slate-900/60 to-transparent'
+                      : 'bg-gradient-to-t from-slate-50 via-slate-50/90 via-slate-50/60 to-transparent'
                   }`}></div>
                 </div>
 
@@ -105,23 +105,6 @@ const Hero = () => {
                   style={{ animationDelay: "1s" }}>
                   <span className={isDarkMode ? "text-blue-400" : "text-blue-500"}>
                     [ ]
-                  </span>
-                </div>
-
-                {/* Badge de disponibilité */}
-                <div className={`absolute -bottom-6 left-1/2 transform -translate-x-1/2 px-5 py-3 rounded-full flex items-center gap-2 shadow-xl backdrop-blur-sm z-20 ${
-                  isDarkMode
-                    ? 'bg-green-900/95 border border-green-700'
-                    : 'bg-green-50 border border-green-300'
-                }`}>
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                  </span>
-                  <span className={`text-sm font-semibold whitespace-nowrap ${
-                    isDarkMode ? 'text-green-300' : 'text-green-700'
-                  }`}>
-                    Disponible pour projets
                   </span>
                 </div>
               </div>
