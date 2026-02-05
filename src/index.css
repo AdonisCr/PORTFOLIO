@@ -30,3 +30,100 @@
 .animate-gradient {
   animation: gradient 3s ease infinite;
 }
+
+
+/* ============================================
+   STYLES OPTIMISÉS POUR L'IMAGE DE PROFIL
+   À ajouter à votre fichier index.css existant
+   ============================================ */
+
+/* Animation de flottement pour les symboles de code */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Animation de gradient pour le texte */
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
+/* ============================================
+   EFFETS POUR L'IMAGE - THÈME SOMBRE
+   ============================================ */
+
+.profile-image-dark {
+  /* Effet glow plus prononcé en mode sombre */
+  transition: all 0.5s ease;
+}
+
+/* Au hover, l'effet s'intensifie */
+.group:hover .profile-image-dark {
+  filter: brightness(1.1) contrast(1.15) drop-shadow(0 0 50px rgba(168, 85, 247, 0.6)) drop-shadow(0 0 100px rgba(236, 72, 153, 0.4)) !important;
+}
+
+/* ============================================
+   EFFETS POUR L'IMAGE - THÈME CLAIR
+   ============================================ */
+
+.profile-image-light {
+  /* Ombre douce et naturelle pour le thème clair */
+  transition: all 0.5s ease;
+}
+
+/* Au hover, l'ombre s'intensifie légèrement */
+.group:hover .profile-image-light {
+  filter: brightness(1.05) contrast(1.08) saturate(1.15) drop-shadow(0 20px 50px rgba(0, 0, 0, 0.25)) !important;
+}
+
+/* ============================================
+   ACCESSIBILITÉ - REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-gradient,
+  .animate-pulse,
+  .animate-bounce,
+  .animate-ping {
+    animation: none;
+  }
+  
+  .profile-image-dark,
+  .profile-image-light {
+    transition: none;
+  }
+}
+
+/* ============================================
+   RESPONSIVE - MOBILE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Réduire légèrement l'intensité des effets sur mobile */
+  .profile-image-dark {
+    filter: brightness(1.03) contrast(1.08) drop-shadow(0 0 30px rgba(168, 85, 247, 0.4)) drop-shadow(0 0 60px rgba(236, 72, 153, 0.2)) !important;
+  }
+  
+  .profile-image-light {
+    filter: brightness(1.02) contrast(1.05) saturate(1.08) drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15)) !important;
+  }
+}

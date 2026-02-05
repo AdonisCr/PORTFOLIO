@@ -260,7 +260,7 @@ const Skills = () => {
         </div>
 
         {/* Section statistiques */}
-        <div
+        {/* <div
           className={`mt-16 p-8 rounded-2xl border ${
             isDarkMode
               ? "bg-slate-800/40 border-slate-700/50"
@@ -317,7 +317,7 @@ const Skills = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <style>{`

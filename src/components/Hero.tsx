@@ -11,7 +11,10 @@ import {
   Target,
   MessageCircle,
 } from "lucide-react";
-import profileImage from "../img/Profile sans Fond.png";
+// Utilisez cette ligne une fois que vous aurez retiré le fond de votre image
+// import profileImage from "../img/Profile sans Fond.png";
+// Ou gardez celle-ci temporairement :
+import profileImage from "../img/profile.png";
 
 const Hero = () => {
   const { isDarkMode } = useTheme();
@@ -40,58 +43,64 @@ const Hero = () => {
       <div className="w-full max-w-[90%] lg:max-w-7xl mx-auto h-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
+          {/* Image Section - À gauche */}
           <div className="flex justify-center lg:justify-start order-1">
-            <div className="relative w-full max-w-[400px] lg:max-w-[500px]">
+            <div className="relative w-full max-w-[400px] lg:max-w-[500px] group">
 
               <div className="relative">
 
-                <div className={`absolute inset-0 rounded-3xl blur-3xl ${
+                {/* Glow effect animé - Plus prononcé en mode sombre */}
+                <div className={`absolute inset-0 rounded-3xl blur-3xl transition-all duration-500 ${
                   isDarkMode 
-                    ? 'bg-gradient-to-br from-purple-500/30 via-pink-500/30 to-purple-500/30 animate-pulse'
-                    : 'bg-gradient-to-br from-purple-200/40 via-pink-200/40 to-purple-200/40 animate-pulse'
+                    ? 'bg-gradient-to-br from-purple-500/40 via-pink-500/40 to-purple-500/40 group-hover:from-purple-500/60 group-hover:via-pink-500/60 group-hover:to-purple-500/60 animate-pulse'
+                    : 'bg-gradient-to-br from-purple-200/30 via-pink-200/30 to-purple-200/30 group-hover:from-purple-200/40 group-hover:via-pink-200/40 group-hover:to-purple-200/40 animate-pulse'
                 }`}></div>
+                
+                {/* Second glow layer pour plus de profondeur */}
                 <div
-                  className={`absolute inset-0 rounded-3xl blur-2xl ${
+                  className={`absolute inset-0 rounded-3xl blur-2xl transition-all duration-500 ${
                     isDarkMode
-                      ? 'bg-gradient-to-tl from-blue-500/20 via-purple-500/20 to-pink-500/20'
-                      : 'bg-gradient-to-tl from-blue-200/30 via-purple-200/30 to-pink-200/30'
+                      ? 'bg-gradient-to-tl from-blue-500/30 via-purple-500/30 to-pink-500/30 group-hover:from-blue-500/40 group-hover:via-purple-500/40 group-hover:to-pink-500/40'
+                      : 'bg-gradient-to-tl from-blue-200/20 via-purple-200/20 to-pink-200/20 group-hover:from-blue-200/30 group-hover:via-purple-200/30 group-hover:to-pink-200/30'
                   }`}
                   style={{ animationDelay: "0.5s" }}
                 ></div>
 
                 {/* Card background */}
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-3xl transition-shadow duration-500">
                   {/* Gradient background pour le card */}
                   <div
-                    className={`absolute inset-0 ${
+                    className={`absolute inset-0 transition-all duration-500 ${
                       isDarkMode
-                        ? "bg-gradient-to-br from-slate-800/80 via-purple-900/40 to-slate-800/80"
-                        : "bg-gradient-to-br from-purple-50/60 via-pink-50/60 to-purple-50/60"
+                        ? "bg-gradient-to-br from-slate-800/80 via-purple-900/40 to-slate-800/80 group-hover:from-slate-800/90 group-hover:via-purple-900/50 group-hover:to-slate-800/90"
+                        : "bg-gradient-to-br from-purple-50/60 via-pink-50/60 to-purple-50/60 group-hover:from-purple-50/70 group-hover:via-pink-50/70 group-hover:to-purple-50/70"
                     }`}
                   ></div>
 
                   {/* Border gradient animé */}
-                  <div className={`absolute inset-0 rounded-3xl blur-sm ${
+                  <div className={`absolute inset-0 rounded-3xl blur-sm transition-opacity duration-500 ${
                     isDarkMode
-                      ? 'bg-gradient-to-br from-purple-400 via-pink-400 to-purple-400 opacity-50'
-                      : 'bg-gradient-to-br from-purple-300/50 via-pink-300/50 to-purple-300/50 opacity-40'
+                      ? 'bg-gradient-to-br from-purple-400 via-pink-400 to-purple-400 opacity-50 group-hover:opacity-70'
+                      : 'bg-gradient-to-br from-purple-300/50 via-pink-300/50 to-purple-300/50 opacity-40 group-hover:opacity-60'
                   }`}></div>
 
-                  {/* image SANS FOND*/}
+                  {/* Image avec effets optimisés */}
                   <div className="relative h-[520px] lg:h-[680px] flex items-end justify-center px-4 pb-0">
-                    {/* <img
+                    <img
                       src={profileImage}
-                      alt="Adonis OUSSOU - Développeur Full Stack"
-                      className="relative h-[540px] lg:h-[700px] w-auto object-contain z-10 drop-shadow-2xl"
+                      alt="Adonis OUSSOU - Développeur Web & Mobile, spécialisé en applications performantes et évolutives"
+                      className={`relative h-[540px] lg:h-[700px] w-auto object-contain z-10 transition-all duration-500 transform group-hover:scale-[1.02] ${
+                        isDarkMode ? 'profile-image-dark' : 'profile-image-light'
+                      }`}
                       style={{ 
                         filter: isDarkMode 
-                          ? 'drop-shadow(0 0 40px rgba(168, 85, 247, 0.4)) drop-shadow(0 0 80px rgba(236, 72, 153, 0.3))' 
-                          : 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15))'
+                          ? 'brightness(1.05) contrast(1.1) drop-shadow(0 0 40px rgba(168, 85, 247, 0.5)) drop-shadow(0 0 80px rgba(236, 72, 153, 0.3))' 
+                          : 'brightness(1.02) contrast(1.05) saturate(1.1) drop-shadow(0 15px 40px rgba(0, 0, 0, 0.2))'
                       }}
-                    /> */}
+                    />
                   </div>
 
-
+                  {/* Gradient fade au bas */}
                   <div
                     className={`absolute bottom-0 left-0 right-0 h-32 ${
                       isDarkMode
@@ -105,7 +114,7 @@ const Hero = () => {
                 <div className="absolute top-10 -right-8 text-3xl font-bold opacity-30 animate-float">
                   <span
                     className={
-                      isDarkMode ? "text-purple-400" : "text-purple-400"
+                      isDarkMode ? "text-purple-400" : "text-purple-500"
                     }
                   >
                     &lt;/&gt;
@@ -116,9 +125,10 @@ const Hero = () => {
                   style={{ animationDelay: "0.5s" }}
                 >
                   <span
-                    className={isDarkMode ? "text-pink-400" : "text-pink-400"}
+                    className={isDarkMode ? "text-pink-400" : "text-pink-500"}
                   >
-                    {}
+                    {'{'}
+                    {'}'}
                   </span>
                 </div>
                 <div
@@ -126,9 +136,28 @@ const Hero = () => {
                   style={{ animationDelay: "1s" }}
                 >
                   <span
-                    className={isDarkMode ? "text-blue-400" : "text-blue-400"}
+                    className={isDarkMode ? "text-blue-400" : "text-blue-500"}
                   >
                     [ ]
+                  </span>
+                </div>
+
+                {/* Badge de disponibilité - Nouveau */}
+                <div 
+                  className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-full flex items-center gap-2 shadow-lg backdrop-blur-sm z-20 ${
+                    isDarkMode
+                      ? 'bg-green-900/90 border border-green-700'
+                      : 'bg-green-50 border border-green-300'
+                  }`}
+                >
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  </span>
+                  <span className={`text-sm font-semibold whitespace-nowrap ${
+                    isDarkMode ? 'text-green-300' : 'text-green-700'
+                  }`}>
+                    Disponible
                   </span>
                 </div>
               </div>
@@ -374,6 +403,8 @@ const Hero = () => {
             <div className="flex justify-center lg:justify-start space-x-6 pt-4">
               <a
                 href="https://github.com/AdonisCr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`p-3 rounded-full transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 ${
                   isDarkMode
                     ? "text-gray-400 hover:text-purple-400 hover:bg-purple-500/20"
@@ -385,6 +416,8 @@ const Hero = () => {
               </a>
               <a
                 href="https://www.linkedin.com/in/adonis-oussou/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`p-3 rounded-full transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 ${
                   isDarkMode
                     ? "text-gray-400 hover:text-blue-400 hover:bg-blue-500/20"
