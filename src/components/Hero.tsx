@@ -48,114 +48,72 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Image Section - À gauche */}
           <div className="flex justify-center lg:justify-start order-1">
-            <div className="relative w-full max-w-[350px] lg:max-w-[450px] group">
+            <div className="relative w-full max-w-[500px] lg:max-w-[650px] group">
               <div className="relative">
-                {/* Glow effect animé - Plus prononcé en mode sombre */}
-                <div
-                  className={`absolute inset-0 rounded-3xl blur-3xl transition-all duration-500 ${
+                {/* Glow effects directement derrière l'image */}
+                <div className={`absolute inset-0 blur-3xl transition-all duration-500 ${
+                  isDarkMode 
+                    ? 'bg-gradient-to-br from-purple-500/50 via-pink-500/50 to-purple-500/50 group-hover:from-purple-500/70 group-hover:via-pink-500/70 group-hover:to-purple-500/70'
+                    : 'bg-gradient-to-br from-purple-300/40 via-pink-300/40 to-purple-300/40 group-hover:from-purple-300/60 group-hover:via-pink-300/60 group-hover:to-purple-300/60'
+                } animate-pulse`}></div>
+                
+                <div className={`absolute inset-0 blur-2xl transition-all duration-500 ${
+                  isDarkMode
+                    ? 'bg-gradient-to-tl from-blue-500/40 via-purple-500/40 to-pink-500/40 group-hover:from-blue-500/60 group-hover:via-purple-500/60 group-hover:to-pink-500/60'
+                    : 'bg-gradient-to-tl from-blue-200/30 via-purple-200/30 to-pink-200/30 group-hover:from-blue-200/50 group-hover:via-purple-200/50 group-hover:to-pink-200/50'
+                }`}></div>
+
+                {/* Container pour l'image avec gradient fade au bas */}
+                <div className="relative">
+                  {/* L'image elle-même - AGRANDIE */}
+                  <img
+                    src={profileImage}
+                    alt="Adonis OUSSOU - Développeur Web & Mobile, spécialisé en applications performantes et évolutives"
+                    className={`relative w-full max-w-[500px] lg:max-w-[650px] h-auto object-contain z-10 transition-all duration-500 transform group-hover:scale-105 ${
+                      isDarkMode ? 'profile-image-dark' : 'profile-image-light'
+                    }`}
+                    style={{ 
+                      filter: isDarkMode 
+                        ? 'brightness(1.08) contrast(1.12) drop-shadow(0 0 60px rgba(168, 85, 247, 0.6)) drop-shadow(0 0 120px rgba(236, 72, 153, 0.4)) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5))' 
+                        : 'brightness(1.05) contrast(1.08) saturate(1.15) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.25)) drop-shadow(0 0 40px rgba(147, 51, 234, 0.2))'
+                    }}
+                  />
+
+                  {/* Gradient fade progressif au bas pour camoufler la limite */}
+                  <div className={`absolute bottom-0 left-0 right-0 h-48 pointer-events-none ${
                     isDarkMode
-                      ? "bg-gradient-to-br from-purple-500/40 via-pink-500/40 to-purple-500/40 group-hover:from-purple-500/60 group-hover:via-pink-500/60 group-hover:to-purple-500/60 animate-pulse"
-                      : "bg-gradient-to-br from-purple-200/30 via-pink-200/30 to-purple-200/30 group-hover:from-purple-200/40 group-hover:via-pink-200/40 group-hover:to-purple-200/40 animate-pulse"
-                  }`}
-                ></div>
-
-                {/* Second glow layer pour plus de profondeur */}
-                <div
-                  className={`absolute inset-0 rounded-3xl blur-2xl transition-all duration-500 ${
-                    isDarkMode
-                      ? "bg-gradient-to-tl from-blue-500/30 via-purple-500/30 to-pink-500/30 group-hover:from-blue-500/40 group-hover:via-purple-500/40 group-hover:to-pink-500/40"
-                      : "bg-gradient-to-tl from-blue-200/20 via-purple-200/20 to-pink-200/20 group-hover:from-blue-200/30 group-hover:via-purple-200/30 group-hover:to-pink-200/30"
-                  }`}
-                  style={{ animationDelay: "0.5s" }}
-                ></div>
-
-                {/* Card background */}
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-3xl transition-shadow duration-500">
-                  {/* Gradient background pour le card */}
-                  <div
-                    className={`absolute inset-0 transition-all duration-500 ${
-                      isDarkMode
-                        ? "bg-gradient-to-br from-slate-800/80 via-purple-900/40 to-slate-800/80 group-hover:from-slate-800/90 group-hover:via-purple-900/50 group-hover:to-slate-800/90"
-                        : "bg-gradient-to-br from-purple-50/60 via-pink-50/60 to-purple-50/60 group-hover:from-purple-50/70 group-hover:via-pink-50/70 group-hover:to-purple-50/70"
-                    }`}
-                  ></div>
-
-                  {/* Border gradient animé */}
-                  <div
-                    className={`absolute inset-0 rounded-3xl blur-sm transition-opacity duration-500 ${
-                      isDarkMode
-                        ? "bg-gradient-to-br from-purple-400 via-pink-400 to-purple-400 opacity-50 group-hover:opacity-70"
-                        : "bg-gradient-to-br from-purple-300/50 via-pink-300/50 to-purple-300/50 opacity-40 group-hover:opacity-60"
-                    }`}
-                  ></div>
-
-                  {/* Image avec effets optimisés */}
-                  <div className="relative h-[450px] lg:h-[600px] flex items-end justify-center px-4 pb-0">
-                    {" "}
-<img
-  src={profileImage}
-  alt="Adonis OUSSOU - Développeur Web & Mobile, spécialisé en applications performantes et évolutives"
-  className={`relative h-[470px] lg:h-[620px] w-auto object-contain z-10 transition-all duration-500 transform group-hover:scale-[1.02] ${
-    isDarkMode ? 'profile-image-dark' : 'profile-image-light'
-  }`}
-                      style={{
-                        filter: isDarkMode
-                          ? "brightness(1.05) contrast(1.1) drop-shadow(0 0 40px rgba(168, 85, 247, 0.5)) drop-shadow(0 0 80px rgba(236, 72, 153, 0.3))"
-                          : "brightness(1.02) contrast(1.05) saturate(1.1) drop-shadow(0 15px 40px rgba(0, 0, 0, 0.2))",
-                      }}
-                    />
-                  </div>
-
-                  {/* Gradient fade au bas */}
-                  <div
-                    className={`absolute bottom-0 left-0 right-0 h-32 ${
-                      isDarkMode
-                        ? "bg-gradient-to-t from-slate-800/80 to-transparent"
-                        : "bg-gradient-to-t from-purple-50/60 to-transparent"
-                    }`}
-                  ></div>
+                      ? 'bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent'
+                      : 'bg-gradient-to-t from-slate-50 via-slate-50/80 to-transparent'
+                  }`}></div>
                 </div>
 
-                {/* Particles de code flottants - Très subtils */}
-                <div className="absolute top-10 -right-8 text-3xl font-bold opacity-30 animate-float">
-                  <span
-                    className={
-                      isDarkMode ? "text-purple-400" : "text-purple-500"
-                    }
-                  >
+                {/* Symboles de code flottants */}
+                <div className="absolute top-10 -right-8 text-4xl font-bold opacity-40 animate-float">
+                  <span className={isDarkMode ? "text-purple-400" : "text-purple-500"}>
                     &lt;/&gt;
                   </span>
                 </div>
-                <div
-                  className="absolute bottom-20 -left-8 text-2xl font-bold opacity-30 animate-float"
-                  style={{ animationDelay: "0.5s" }}
-                >
-                  <span
-                    className={isDarkMode ? "text-pink-400" : "text-pink-500"}
-                  >
-                    {"{"}
-                    {"}"}
+                
+                <div className="absolute bottom-20 -left-8 text-3xl font-bold opacity-40 animate-float"
+                  style={{ animationDelay: "0.5s" }}>
+                  <span className={isDarkMode ? "text-pink-400" : "text-pink-500"}>
+                    {'{}'}
                   </span>
                 </div>
-                <div
-                  className="absolute top-1/3 -right-6 text-xl font-bold opacity-30 animate-float"
-                  style={{ animationDelay: "1s" }}
-                >
-                  <span
-                    className={isDarkMode ? "text-blue-400" : "text-blue-500"}
-                  >
+                
+                <div className="absolute top-1/3 -right-10 text-2xl font-bold opacity-40 animate-float"
+                  style={{ animationDelay: "1s" }}>
+                  <span className={isDarkMode ? "text-blue-400" : "text-blue-500"}>
                     [ ]
                   </span>
                 </div>
 
-                {/* Badge de disponibilité - Nouveau */}
-                {/* <div 
-                  className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-full flex items-center gap-2 shadow-lg backdrop-blur-sm z-20 ${
-                    isDarkMode
-                      ? 'bg-green-900/90 border border-green-700'
-                      : 'bg-green-50 border border-green-300'
-                  }`}
-                >
+                {/* Badge de disponibilité */}
+                <div className={`absolute -bottom-6 left-1/2 transform -translate-x-1/2 px-5 py-3 rounded-full flex items-center gap-2 shadow-xl backdrop-blur-sm z-20 ${
+                  isDarkMode
+                    ? 'bg-green-900/95 border border-green-700'
+                    : 'bg-green-50 border border-green-300'
+                }`}>
                   <span className="relative flex h-3 w-3">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
@@ -163,9 +121,9 @@ const Hero = () => {
                   <span className={`text-sm font-semibold whitespace-nowrap ${
                     isDarkMode ? 'text-green-300' : 'text-green-700'
                   }`}>
-                    Disponible
+                    Disponible pour projets
                   </span>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
