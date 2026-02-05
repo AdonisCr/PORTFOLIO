@@ -27,41 +27,44 @@ const Hero = () => {
     <section
       id="hero"
       className={`min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 relative overflow-hidden ${
-        isDarkMode ? 'bg-slate-900' : 'bg-slate-50'
+        isDarkMode ? "bg-slate-900" : "bg-slate-50"
       }`}
     >
       {/* Éléments décoratifs en arrière-plan - INVERSÉS par rapport à Skills */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute -top-40 -left-40 w-80 h-80 rounded-full blur-3xl opacity-20 ${
-          isDarkMode ? 'bg-blue-500' : 'bg-blue-200'
-        }`}></div>
-        <div className={`absolute -bottom-40 -right-40 w-80 h-80 rounded-full blur-3xl opacity-20 ${
-          isDarkMode ? 'bg-purple-500' : 'bg-purple-200'
-        }`}></div>
+        <div
+          className={`absolute -top-40 -left-40 w-80 h-80 rounded-full blur-3xl opacity-20 ${
+            isDarkMode ? "bg-blue-500" : "bg-blue-200"
+          }`}
+        ></div>
+        <div
+          className={`absolute -bottom-40 -right-40 w-80 h-80 rounded-full blur-3xl opacity-20 ${
+            isDarkMode ? "bg-purple-500" : "bg-purple-200"
+          }`}
+        ></div>
       </div>
 
       <div className="w-full max-w-[90%] lg:max-w-7xl mx-auto h-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-
           {/* Image Section - À gauche */}
           <div className="flex justify-center lg:justify-start order-1">
-            <div className="relative w-full max-w-[400px] lg:max-w-[500px] group">
-
+            <div className="relative w-full max-w-[350px] lg:max-w-[450px] group">
               <div className="relative">
-
                 {/* Glow effect animé - Plus prononcé en mode sombre */}
-                <div className={`absolute inset-0 rounded-3xl blur-3xl transition-all duration-500 ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-br from-purple-500/40 via-pink-500/40 to-purple-500/40 group-hover:from-purple-500/60 group-hover:via-pink-500/60 group-hover:to-purple-500/60 animate-pulse'
-                    : 'bg-gradient-to-br from-purple-200/30 via-pink-200/30 to-purple-200/30 group-hover:from-purple-200/40 group-hover:via-pink-200/40 group-hover:to-purple-200/40 animate-pulse'
-                }`}></div>
-                
+                <div
+                  className={`absolute inset-0 rounded-3xl blur-3xl transition-all duration-500 ${
+                    isDarkMode
+                      ? "bg-gradient-to-br from-purple-500/40 via-pink-500/40 to-purple-500/40 group-hover:from-purple-500/60 group-hover:via-pink-500/60 group-hover:to-purple-500/60 animate-pulse"
+                      : "bg-gradient-to-br from-purple-200/30 via-pink-200/30 to-purple-200/30 group-hover:from-purple-200/40 group-hover:via-pink-200/40 group-hover:to-purple-200/40 animate-pulse"
+                  }`}
+                ></div>
+
                 {/* Second glow layer pour plus de profondeur */}
                 <div
                   className={`absolute inset-0 rounded-3xl blur-2xl transition-all duration-500 ${
                     isDarkMode
-                      ? 'bg-gradient-to-tl from-blue-500/30 via-purple-500/30 to-pink-500/30 group-hover:from-blue-500/40 group-hover:via-purple-500/40 group-hover:to-pink-500/40'
-                      : 'bg-gradient-to-tl from-blue-200/20 via-purple-200/20 to-pink-200/20 group-hover:from-blue-200/30 group-hover:via-purple-200/30 group-hover:to-pink-200/30'
+                      ? "bg-gradient-to-tl from-blue-500/30 via-purple-500/30 to-pink-500/30 group-hover:from-blue-500/40 group-hover:via-purple-500/40 group-hover:to-pink-500/40"
+                      : "bg-gradient-to-tl from-blue-200/20 via-purple-200/20 to-pink-200/20 group-hover:from-blue-200/30 group-hover:via-purple-200/30 group-hover:to-pink-200/30"
                   }`}
                   style={{ animationDelay: "0.5s" }}
                 ></div>
@@ -78,24 +81,27 @@ const Hero = () => {
                   ></div>
 
                   {/* Border gradient animé */}
-                  <div className={`absolute inset-0 rounded-3xl blur-sm transition-opacity duration-500 ${
-                    isDarkMode
-                      ? 'bg-gradient-to-br from-purple-400 via-pink-400 to-purple-400 opacity-50 group-hover:opacity-70'
-                      : 'bg-gradient-to-br from-purple-300/50 via-pink-300/50 to-purple-300/50 opacity-40 group-hover:opacity-60'
-                  }`}></div>
+                  <div
+                    className={`absolute inset-0 rounded-3xl blur-sm transition-opacity duration-500 ${
+                      isDarkMode
+                        ? "bg-gradient-to-br from-purple-400 via-pink-400 to-purple-400 opacity-50 group-hover:opacity-70"
+                        : "bg-gradient-to-br from-purple-300/50 via-pink-300/50 to-purple-300/50 opacity-40 group-hover:opacity-60"
+                    }`}
+                  ></div>
 
                   {/* Image avec effets optimisés */}
-                  <div className="relative h-[520px] lg:h-[680px] flex items-end justify-center px-4 pb-0">
-                    <img
-                      src={profileImage}
-                      alt="Adonis OUSSOU - Développeur Web & Mobile, spécialisé en applications performantes et évolutives"
-                      className={`relative h-[540px] lg:h-[700px] w-auto object-contain z-10 transition-all duration-500 transform group-hover:scale-[1.02] ${
-                        isDarkMode ? 'profile-image-dark' : 'profile-image-light'
-                      }`}
-                      style={{ 
-                        filter: isDarkMode 
-                          ? 'brightness(1.05) contrast(1.1) drop-shadow(0 0 40px rgba(168, 85, 247, 0.5)) drop-shadow(0 0 80px rgba(236, 72, 153, 0.3))' 
-                          : 'brightness(1.02) contrast(1.05) saturate(1.1) drop-shadow(0 15px 40px rgba(0, 0, 0, 0.2))'
+                  <div className="relative h-[450px] lg:h-[600px] flex items-end justify-center px-4 pb-0">
+                    {" "}
+<img
+  src={profileImage}
+  alt="Adonis OUSSOU - Développeur Web & Mobile, spécialisé en applications performantes et évolutives"
+  className={`relative h-[470px] lg:h-[620px] w-auto object-contain z-10 transition-all duration-500 transform group-hover:scale-[1.02] ${
+    isDarkMode ? 'profile-image-dark' : 'profile-image-light'
+  }`}
+                      style={{
+                        filter: isDarkMode
+                          ? "brightness(1.05) contrast(1.1) drop-shadow(0 0 40px rgba(168, 85, 247, 0.5)) drop-shadow(0 0 80px rgba(236, 72, 153, 0.3))"
+                          : "brightness(1.02) contrast(1.05) saturate(1.1) drop-shadow(0 15px 40px rgba(0, 0, 0, 0.2))",
                       }}
                     />
                   </div>
@@ -127,8 +133,8 @@ const Hero = () => {
                   <span
                     className={isDarkMode ? "text-pink-400" : "text-pink-500"}
                   >
-                    {'{'}
-                    {'}'}
+                    {"{"}
+                    {"}"}
                   </span>
                 </div>
                 <div
@@ -143,7 +149,7 @@ const Hero = () => {
                 </div>
 
                 {/* Badge de disponibilité - Nouveau */}
-                <div 
+                {/* <div 
                   className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-full flex items-center gap-2 shadow-lg backdrop-blur-sm z-20 ${
                     isDarkMode
                       ? 'bg-green-900/90 border border-green-700'
@@ -159,7 +165,7 @@ const Hero = () => {
                   }`}>
                     Disponible
                   </span>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
