@@ -11,9 +11,6 @@ import {
   Target,
   MessageCircle,
 } from "lucide-react";
-// Utilisez cette ligne une fois que vous aurez retiré le fond de votre image
-// import profileImage from "../img/Profile sans Fond.png";
-// Ou gardez celle-ci temporairement :
 import profileImage from "../img/profile.png";
 
 const Hero = () => {
