@@ -31,7 +31,7 @@ const Skills = () => {
       skills: [
         { name: "Node.js", level: 90, icon: "" },
         { name: "PHP", level: 70, icon: "" },
-                { name: "Laravel", level: 80, icon: "" },
+        { name: "Laravel", level: 80, icon: "" },
         { name: "Express.js", level: 60, icon: "" },
         { name: "REST APIs", level: 60, icon: "" },
         // { name: "GraphQL", level: 75, icon: "" },
@@ -106,12 +106,14 @@ const Skills = () => {
           </div>
 
           <h2
-            className={`text-5xl font-bold mb-6 ${
+            className={`text-4xl sm:text-5xl font-extrabold text-center mb-4 ${
               isDarkMode ? "text-white/80" : "text-gray-600"
             }`}
           >
             Mes{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span
+              className={isDarkMode ? "text-purple-400" : "text-purple-600"}
+            >
               Compétences
             </span>
           </h2>
@@ -129,7 +131,7 @@ const Skills = () => {
         {/* Grille de compétences */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {skillCategories.map((category, categoryIndex) => {
-            const IconComponent = category.icon;
+            // const IconComponent = category.icon;
 
             return (
               <div
@@ -140,19 +142,9 @@ const Skills = () => {
                     : "bg-white/70 border-gray-200/60 hover:border-purple-300/60 hover:shadow-xl hover:shadow-purple-500/5"
                 }`}
               >
-                {/* Gradient d'arrière-plan au survol */}
-                <div
-                  className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-25 transition-opacity duration-500 ${category.bgColor} blur-xl`}
-                ></div>
-
                 <div className="relative z-10">
                   {/* En-tête de catégorie */}
                   <div className="flex items-center mb-8">
-                    <div
-                      className={`p-3 rounded-xl bg-gradient-to-r ${category.color} shadow-lg`}
-                    >
-                      <IconComponent className="w-6 h-6 text-white" />
-                    </div>
                     <h3
                       className={`ml-4 text-2xl font-bold ${
                         isDarkMode ? "text-white" : "text-gray-900"
@@ -207,7 +199,9 @@ const Skills = () => {
                           }`}
                         >
                           <div
-                            className={`h-full rounded-full bg-gradient-to-r ${category.color} transition-all duration-1000 ease-out relative overflow-hidden`}
+                            className={`h-full rounded-full transition-all duration-1000 ease-out ${
+                              isDarkMode ? "bg-slate-500" : "bg-slate-600"
+                            }`}
                             style={{
                               width:
                                 hoveredSkill ===
@@ -222,12 +216,12 @@ const Skills = () => {
                             }}
                           >
                             {/* Effet de brillance */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                            {/* <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div> */}
                           </div>
                           {hoveredSkill ===
                             `${categoryIndex}-${skillIndex}` && (
                             <div
-                              className={`absolute top-0 left-0 h-full rounded-full bg-gradient-to-r ${category.color}`}
+                              className={`absolute top-0 left-0 h-full rounded-full`}
                               style={{ width: `${skill.level}%` }}
                             ></div>
                           )}
@@ -258,66 +252,6 @@ const Skills = () => {
             );
           })}
         </div>
-
-        {/* Section statistiques */}
-        {/* <div
-          className={`mt-16 p-8 rounded-2xl border ${
-            isDarkMode
-              ? "bg-slate-800/40 border-slate-700/50"
-              : "bg-white/60 border-gray-200/60"
-          }`}
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div
-                className={`text-4xl font-bold ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}
-              >
-                24+
-              </div>
-              <div
-                className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
-              >
-                Technologies
-              </div>
-            </div>
-            <div className="text-center">
-              <div
-                className={`text-4xl font-bold ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}
-              >
-                87%
-              </div>
-              <div
-                className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
-              >
-                Niveau moyen
-              </div>
-            </div>
-            <div className="text-center">
-              <div
-                className={`text-4xl font-bold ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}
-              >
-                3
-              </div>
-              <div
-                className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}
-              >
-                Catégories
-              </div>
-            </div>
-            <div className="text-center">
-              <div
-                className={`text-4xl font-bold ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}
-              >
-                1+
-              </div>
-              <div
-                className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
-              >
-                Ans d'expérience
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
 
       <style>{`

@@ -108,7 +108,7 @@ const Projects = () => {
     const check = () => {
       setShowGradient(
         el.scrollHeight > el.clientHeight &&
-          el.scrollTop + el.clientHeight < el.scrollHeight - 10
+          el.scrollTop + el.clientHeight < el.scrollHeight - 10,
       );
     };
 
@@ -146,19 +146,18 @@ const Projects = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-12 sm:mb-16">
           <h2
-            className={`text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 ${
-              isDarkMode ? "text-white" : "text-gray-900"
+            className={`text-4xl sm:text-5xl font-extrabold text-center mb-4 ${
+              isDarkMode ? "text-slate-300" : "text-gray-600"
             }`}
           >
             Mes Projets
           </h2>
           <div
-            className={`w-20 sm:w-24 h-1 mx-auto mb-6 sm:mb-8 ${
-              isDarkMode
-                ? "bg-gradient-to-r from-purple-400 to-pink-400"
-                : "bg-gradient-to-r from-purple-600 to-pink-600"
+            className={`w-24 sm:w-28 h-1 mx-auto rounded-full mb-6 sm:mb-8 ${
+              isDarkMode ? "bg-purple-400" : "bg-purple-600"
             }`}
           ></div>
+
           <p
             className={`text-base sm:text-lg max-w-3xl mx-auto px-4 ${
               isDarkMode ? "text-gray-300" : "text-gray-600"
@@ -180,11 +179,11 @@ const Projects = () => {
                 className={`flex items-center space-x-1.5 sm:space-x-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base font-medium transition-all duration-300 ${
                   activeCategory === category.id
                     ? isDarkMode
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
-                      : "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
+                      ? "bg-purple-800 text-white shadow-lg"
+                      : "bg-purple-600 text-white shadow-lg"
                     : isDarkMode
-                      ? "bg-slate-800/50 text-gray-300 hover:text-purple-400 border border-slate-700 hover:border-purple-400/50"
-                      : "bg-white/50 text-gray-700 hover:text-purple-600 border border-gray-200 hover:border-purple-300"
+                      ? "bg-slate-800/50 text-gray-300 hover:bg-slate-800 hover:text-purple-400 border border-slate-700"
+                      : "bg-white text-gray-700 hover:bg-gray-50 hover:text-purple-600 border border-gray-200"
                 }`}
               >
                 <Icon size={16} className="sm:w-[18px] sm:h-[18px]" />
@@ -196,7 +195,7 @@ const Projects = () => {
 
         {/* Projects Grid with Custom Scrollbar */}
         <div className="relative">
-          <style >{`
+          <style>{`
             .custom-scrollbar::-webkit-scrollbar {
               width: 8px;
             }
@@ -205,38 +204,46 @@ const Projects = () => {
               border-radius: 10px;
             }
             .custom-scrollbar::-webkit-scrollbar-thumb {
-              background: ${isDarkMode 
-                ? "linear-gradient(180deg, rgb(168, 85, 247) 0%, rgb(236, 72, 153) 100%)" 
-                : "linear-gradient(180deg, rgb(147, 51, 234) 0%, rgb(219, 39, 119) 100%)"};
+              background: ${
+                isDarkMode
+                  ? "linear-gradient(180deg, rgb(168, 85, 247) 0%, rgb(236, 72, 153) 100%)"
+                  : "linear-gradient(180deg, rgb(147, 51, 234) 0%, rgb(219, 39, 119) 100%)"
+              };
               border-radius: 10px;
               border: 2px solid ${isDarkMode ? "rgba(30, 41, 59, 0.3)" : "rgba(226, 232, 240, 0.5)"};
             }
             .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-              background: ${isDarkMode 
-                ? "linear-gradient(180deg, rgb(192, 132, 252) 0%, rgb(244, 114, 182) 100%)" 
-                : "linear-gradient(180deg, rgb(126, 34, 206) 0%, rgb(190, 24, 93) 100%)"};
+              background: ${
+                isDarkMode
+                  ? "linear-gradient(180deg, rgb(192, 132, 252) 0%, rgb(244, 114, 182) 100%)"
+                  : "linear-gradient(180deg, rgb(126, 34, 206) 0%, rgb(190, 24, 93) 100%)"
+              };
             }
             /* Firefox */
             .custom-scrollbar {
               scrollbar-width: thin;
-              scrollbar-color: ${isDarkMode 
-                ? "rgb(168, 85, 247) rgba(30, 41, 59, 0.3)" 
-                : "rgb(147, 51, 234) rgba(226, 232, 240, 0.5)"};
+              scrollbar-color: ${
+                isDarkMode
+                  ? "rgb(168, 85, 247) rgba(30, 41, 59, 0.3)"
+                  : "rgb(147, 51, 234) rgba(226, 232, 240, 0.5)"
+              };
             }
           `}</style>
-          
+
           <div
             ref={listRef}
             role="region"
             aria-label="Liste des projets"
             tabIndex={0}
             className={`custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 ${
-              shouldScroll ? "max-h-[450px] sm:max-h-[520px] overflow-y-auto pr-2 sm:pr-4" : ""
+              shouldScroll
+                ? "max-h-[450px] sm:max-h-[520px] overflow-y-auto pr-2 sm:pr-4"
+                : ""
             }`}
           >
             {filteredProjects.map((project, index) => (
               <div
-                key={index}
+                key={project.title}
                 className={`backdrop-blur-sm rounded-xl overflow-hidden border transition-all duration-300 hover:transform hover:scale-105 group ${
                   isDarkMode
                     ? "bg-slate-800/50 border-slate-700 hover:border-purple-400/50 hover:shadow-xl hover:shadow-purple-500/10"
@@ -284,7 +291,9 @@ const Projects = () => {
 
                   <div className="flex items-center space-x-3 sm:space-x-4">
                     <a
-                      href={project.demoUrl}
+                      href={
+                        project.demoUrl !== "#" ? project.demoUrl : undefined
+                      }
                       className={`flex items-center space-x-1.5 sm:space-x-2 transition-colors ${
                         isDarkMode
                           ? "text-purple-400 hover:text-purple-300"
