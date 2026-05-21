@@ -1,362 +1,286 @@
-import { useState, useRef } from "react";
-import { useTheme } from "../contexts/ThemeContext";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { MapPin, Calendar, GraduationCap, Briefcase } from "lucide-react";
+import BackgroundBlobs from "./BackgroundBlobs";
+import SectionHeader from "./SectionHeader";
+import AnimatedCounter from "./AnimatedCounter";
+
+const entries = [
+  {
+    type: "stage",
+    title: "Développement Web",
+    org: "RAYNIS",
+    location: "Cotonou",
+    period: "Oct 2025 – Déc 2025",
+    desc: "Projets Vue.js/Tailwind + PHP/Laravel. Refonte courir54.fr. Méthode Agile.",
+    icon: Briefcase,
+    color: "from-violet-500/20 to-violet-500/5",
+    accent: "#3b82f6",
+    border: "border-blue-500/40",
+    tag: "Stage",
+    tagColor: "bg-blue-500/15 text-blue-400 ring-1 ring-blue-500/30",
+  },
+  {
+    type: "stage",
+    title: "Développement Web",
+    org: "NerdX Digital",
+    location: "Abomey-Calavi",
+    period: "Jan 2025 – Mai 2025",
+    desc: "React.js, Tailwind, Node.js, Express.js, MongoDB. Méthode Agile.",
+    icon: Briefcase,
+    color: "from-blue-500/20 to-blue-500/5",
+    accent: "#3b82f6",
+    border: "border-blue-500/40",
+    tag: "Stage",
+    tagColor: "bg-blue-500/15 text-blue-400 ring-1 ring-blue-500/30",
+  },
+  {
+    type: "formation",
+    title: "Développement Web & Mobile",
+    org: "École 229",
+    location: "Cotonou",
+    period: "Mars 2024 – Nov 2025",
+    desc: "React, Vue.js, Laravel, Node.js, Flutter, MongoDB.",
+    icon: GraduationCap,
+    color: "from-emerald-500/20 to-emerald-500/5",
+    accent: "#10b981",
+    border: "border-emerald-500/40",
+    tag: "Formation",
+    tagColor: "bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30",
+  },
+  {
+    type: "stage",
+    title: "Développement Web No Code",
+    org: "QCT-Group",
+    location: "Cotonou",
+    period: "Jan 2024 – Mars 2024",
+    desc: "Maquettes Figma, intégration WordPress, création charte graphique.",
+    icon: Briefcase,
+    color: "from-orange-500/20 to-orange-500/5",
+    accent: "#f97316",
+    border: "border-orange-500/40",
+    tag: "Stage",
+    tagColor: "bg-orange-500/15 text-orange-400 ring-1 ring-orange-500/30",
+  },
+  {
+    type: "formation",
+    title: "Compétences Numériques Fondamentales",
+    org: "École 229",
+    location: "Cotonou",
+    period: "Août 2023 – Jan 2024",
+    desc: "Algorithmique et fondamentaux du développement web.",
+    icon: GraduationCap,
+    color: "from-emerald-500/20 to-emerald-500/5",
+    accent: "#10b981",
+    border: "border-emerald-500/40",
+    tag: "Formation",
+    tagColor: "bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30",
+  },
+];
 
 const Experience = () => {
-  const { isDarkMode } = useTheme();
-  const scrollContainerRef = useRef(null);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
-  const experiences = [
-    {
-      title: "Graphiste",
-      period: "NOV 2021 - JUL 2022",
-      duration: "09 Mois",
-      company: "MYAH",
-      companyFull: "IT COMPANY",
-      logo: "/path-to-myah-logo.png",
-    },
-    {
-      title: "Graphiste Assistant",
-      period: "FÉV 2022 - AVR 2022",
-      duration: "03 Mois",
-      company: "IDIVO HOME",
-      companyFull: "",
-      logo: "/path-to-idivo-logo.png",
-    },
-    {
-      title: "Graphiste",
-      period: "SEP 2022 - MAI 2023",
-      duration: "09 Mois",
-      company: "ASIN",
-      companyFull: "AGENCE DES SYSTEMES D'INFORMATION ET DU NUMERIQUE",
-      companySubtitle: "RÉPUBLIQUE DU BÉNIN",
-      logo: "/path-to-asin-logo.png",
-    },
-    {
-      title: "UX/UI Designer",
-      period: "JUL 2023 - SEP 2023",
-      duration: "03 Mois",
-      company: "Open SI",
-      companyFull: "",
-      logo: "/path-to-opensi-logo.png",
-    },
-  ];
-
-  const scroll = (direction) => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 400;
-      const newScrollPosition = 
-        direction === 'left' 
-          ? scrollContainerRef.current.scrollLeft - scrollAmount
-          : scrollContainerRef.current.scrollLeft + scrollAmount;
-      
-      scrollContainerRef.current.scrollTo({
-        left: newScrollPosition,
-        behavior: 'smooth'
-      });
-    }
+  const cardVariants = {
+    hidden: { opacity: 0, x: 60, scale: 0.96 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        delay: i * 0.1,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      },
+    }),
   };
 
   return (
-    <section
-      id="experience"
-      className={`py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden ${
-        isDarkMode
-          ? "bg-slate-900"
-          : "bg-gradient-to-b from-white via-gray-50 to-slate-50"
-      }`}
-    >
-      {/* Éléments décoratifs en arrière-plan */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className={`absolute -top-40 -left-40 w-80 h-80 rounded-full blur-3xl opacity-20 ${
-            isDarkMode ? "bg-blue-500" : "bg-blue-200"
-          }`}
-        ></div>
-        <div
-          className={`absolute -bottom-40 -right-40 w-80 h-80 rounded-full blur-3xl opacity-20 ${
-            isDarkMode ? "bg-purple-500" : "bg-purple-200"
-          }`}
-        ></div>
-      </div>
+      <section
+        id="experience"
+        className="py-24 relative overflow-hidden bg-base"
+        ref={sectionRef}
+        aria-labelledby="experience-heading"
+      >
+      <BackgroundBlobs />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center mb-4">
-            <span
-              className={`ml-2 text-sm font-semibold uppercase tracking-wider ${
-                isDarkMode ? "text-blue-400" : "text-blue-600"
-              }`}
-            >
-              Parcours Professionnel
-            </span>
-          </div>
-
-          <h2
-            className={`text-5xl font-bold mb-6 ${
-              isDarkMode ? "text-white/80" : "text-gray-600"
-            }`}
-          >
-            Mon{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Expérience
-            </span>
-          </h2>
-
-          <p
-            className={`text-lg max-w-2xl mx-auto ${
-              isDarkMode ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
-            Un parcours riche et diversifié au service de la création visuelle et du design
-          </p>
+      <div className="relative z-10">
+        {/* Header — centré avec max-w */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
+          <SectionHeader
+            isInView={isInView}
+            title="Mon"
+            highlight="Parcours"
+            headingId="experience-heading"
+            subtitle="Formations, expériences professionnelles et hackathons"
+          />
         </div>
 
-        {/* Timeline Container */}
-        <div className="relative">
-          {/* Conteneur scrollable */}
+        {/* Scroll hint fade sur les bords */}
+        <div className="relative mt-10">
+          {/* Fade gauche */}
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-16 z-10 bg-gradient-to-r from-base to-transparent" />
+          {/* Fade droite */}
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-16 z-10 bg-gradient-to-l from-base to-transparent" />
+
+          {/* Scroll container */}
           <div
-            ref={scrollContainerRef}
-            className="overflow-x-auto scrollbar-hide px-16"
+            ref={scrollRef}
+            className="overflow-x-auto pb-4"
             style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              cursor: "grab",
             }}
           >
-            <div
-              className={`relative backdrop-blur-sm rounded-3xl p-12 border ${
-                isDarkMode
-                  ? "bg-slate-800/40 border-slate-700/50"
-                  : "bg-white/70 border-gray-200/60"
-              }`}
-            >
-              {/* Bouton gauche sur la card */}
-              <button
-                onClick={() => scroll('left')}
-                className={`absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full shadow-md transition-all duration-300 hover:scale-110 ${
-                  isDarkMode
-                    ? "bg-slate-700/30 text-white/40 hover:bg-slate-700/60 hover:text-white/80"
-                    : "bg-gray-200/30 text-gray-600/40 hover:bg-gray-200/60 hover:text-gray-600/80"
-                }`}
-                aria-label="Scroll left"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-
-              {/* Bouton droit sur la card */}
-              <button
-                onClick={() => scroll('right')}
-                className={`absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full shadow-md transition-all duration-300 hover:scale-110 ${
-                  isDarkMode
-                    ? "bg-slate-700/30 text-white/40 hover:bg-slate-700/60 hover:text-white/80"
-                    : "bg-gray-200/30 text-gray-600/40 hover:bg-gray-200/60 hover:text-gray-600/80"
-                }`}
-                aria-label="Scroll right"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-
-              {/* Conteneur de la timeline */}
-              <div className="min-w-max relative">
-                {/* Postes alignés en haut */}
-                <div className="flex items-center gap-0 mb-12 relative">
-                  {/* Ligne horizontale qui passe au milieu des postes */}
-                  <div 
-                    className={`absolute left-0 right-0 h-0.5 z-0`}
-                    style={{ 
-                      top: '50%',
-                      borderStyle: 'dashed',
-                      backgroundImage: isDarkMode 
-                        ? 'linear-gradient(to right, #4b5563 50%, transparent 50%)'
-                        : 'linear-gradient(to right, #d1d5db 50%, transparent 50%)',
-                      backgroundSize: '10px 1px',
-                      backgroundRepeat: 'repeat-x',
-                      height: '1px',
+            <div className="flex gap-5 px-8 sm:px-16 w-max">
+              {entries.map((entry, i) => (
+                <motion.div
+                  key={i}
+                  custom={i}
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                  variants={cardVariants}
+                  className="w-[300px] flex-shrink-0"
+                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                >
+                  <div
+                    className={` 
+                      relative h-full rounded-2xl border ${entry.border}
+                      bg-surface/30 backdrop-blur-sm overflow-hidden
+                      transition-all duration-300 group
+                      hover:shadow-2xl
+                    `}
+                    style={{
+                      boxShadow: `0 0 0 0 ${entry.accent}00`,
                     }}
-                  ></div>
-
-                  {experiences.map((exp, index) => (
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.boxShadow =
+                        `0 8px 32px -8px ${entry.accent}40`;
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.boxShadow =
+                        `0 0 0 0 ${entry.accent}00`;
+                    }}
+                  >
+                    {/* Gradient fond */}
                     <div
-                      key={`top-${index}`}
-                      className="relative flex flex-col items-center z-10"
-                      style={{ width: '280px' }}
-                    >
-                      <div
-                        onMouseEnter={() => setHoveredIndex(index)}
-                        onMouseLeave={() => setHoveredIndex(null)}
-                        className={`transition-all duration-300 text-center ${
-                          hoveredIndex === index ? "scale-105" : ""
-                        }`}
-                      >
-                        <h3
-                          className={`text-xl font-bold mb-2 ${
-                            isDarkMode ? "text-white" : "text-gray-800"
-                          }`}
-                        >
-                          {exp.title}
-                        </h3>
-                        <p
-                          className={`text-sm font-medium mb-1 ${
-                            isDarkMode ? "text-gray-400" : "text-gray-600"
-                          }`}
-                        >
-                          {exp.period}
-                        </p>
-                        <p
-                          className={`text-xs ${
-                            isDarkMode ? "text-gray-500" : "text-gray-500"
-                          }`}
-                        >
-                          ( {exp.duration} )
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                      className={`absolute inset-0 bg-gradient-to-br ${entry.color} opacity-60`}
+                    />
 
-                {/* Espace entre les postes et les lignes verticales */}
-                <div className="h-8"></div>
-
-                {/* Lignes verticales avec points au bout */}
-                <div className="flex items-start gap-0">
-                  {experiences.map((exp, index) => (
+                    {/* Barre accent gauche */}
                     <div
-                      key={`vline-${index}`}
-                      className="relative flex flex-col items-center"
-                      style={{ width: '280px' }}
-                    >
-                      {/* Ligne verticale */}
-                      <div
-                        className={`w-0.5 h-32 ${
-                          isDarkMode ? "bg-gray-600" : "bg-gray-300"
-                        }`}
-                      ></div>
+                      className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl"
+                      style={{ background: entry.accent }}
+                    />
 
-                      {/* Point coloré au bout de la ligne verticale */}
-                      <div
-                        onMouseEnter={() => setHoveredIndex(index)}
-                        onMouseLeave={() => setHoveredIndex(null)}
-                        className={`w-4 h-4 rounded-full transition-all duration-300 ${
-                          hoveredIndex === index
-                            ? isDarkMode
-                              ? "bg-blue-400 ring-4 ring-blue-400/30 scale-125"
-                              : "bg-blue-500 ring-4 ring-blue-500/30 scale-125"
-                            : isDarkMode
-                              ? "bg-teal-400 ring-2 ring-teal-400/20"
-                              : "bg-teal-600 ring-2 ring-teal-600/20"
-                        }`}
-                      ></div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Espace avant les entreprises */}
-                <div className="h-8"></div>
-
-                {/* Entreprises alignées en bas */}
-                <div className="flex items-start gap-0 pt-8 border-t border-gray-200/20">
-                  {experiences.map((exp, index) => (
-                    <div
-                      key={`company-${index}`}
-                      onMouseEnter={() => setHoveredIndex(index)}
-                      onMouseLeave={() => setHoveredIndex(null)}
-                      className={`flex flex-col items-center justify-center transition-all duration-300 ${
-                        hoveredIndex === index ? "scale-110" : "opacity-70 hover:opacity-100"
-                      }`}
-                      style={{ width: '280px' }}
-                    >
-                      {/* Logo placeholder */}
-                      <div
-                        className={`w-32 h-20 rounded-lg flex items-center justify-center ${
-                          isDarkMode ? "bg-slate-700/50" : "bg-gray-100"
-                        }`}
-                      >
-                        <div className={`text-center px-2 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-                          <div className="font-bold text-base leading-tight">{exp.company}</div>
-                          {exp.companyFull && (
-                            <div className="text-xs mt-1 leading-tight">{exp.companyFull}</div>
-                          )}
-                          {exp.companySubtitle && (
-                            <div className="text-xs mt-0.5 opacity-70 leading-tight">{exp.companySubtitle}</div>
-                          )}
+                    {/* Contenu */}
+                    <div className="relative z-10 p-5 flex flex-col gap-3">
+                      {/* Header card */}
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                            style={{
+                              background: `${entry.accent}20`,
+                              border: `1px solid ${entry.accent}40`,
+                              color: entry.accent,
+                            }}
+                          >
+                            <entry.icon size={16} />
+                          </div>
+                          <div className="min-w-0">
+                            <h3 className="text-sm font-bold text-text-1 leading-tight group-hover:text-white transition-colors line-clamp-2">
+                              {entry.title}
+                            </h3>
+                            <p className="text-xs text-text-2 mt-0.5 font-medium">
+                              {entry.org}
+                            </p>
+                          </div>
                         </div>
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-semibold whitespace-nowrap flex-shrink-0 ${entry.tagColor}`}
+                        >
+                          {entry.tag}
+                        </span>
                       </div>
+
+                      {/* Lieu + Dates */}
+                      <div className="flex flex-col gap-1">
+                        <span className="flex items-center gap-1.5 text-xs text-text-3">
+                          <MapPin size={11} className="flex-shrink-0" />
+                          {entry.location}
+                        </span>
+                        <span className="flex items-center gap-1.5 text-xs text-text-3">
+                          <Calendar size={11} className="flex-shrink-0" />
+                          {entry.period}
+                        </span>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-xs text-text-2 leading-relaxed border-t border-white/5 pt-3">
+                        {entry.desc}
+                      </p>
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Section statistiques */}
-        <div
-          className={`mt-16 p-8 rounded-2xl border ${
-            isDarkMode
-              ? "bg-slate-800/40 border-slate-700/50"
-              : "bg-white/60 border-gray-200/60"
-          }`}
+        {/* Indicateur de scroll */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.8 }}
+          className="flex items-center justify-center gap-2 mt-2 text-xs text-text-3"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div
-                className={`text-4xl font-bold ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}
-              >
-                4
-              </div>
-              <div
-                className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
-              >
-                Expériences
-              </div>
+          <span className="flex gap-1">
+            {entries.map((_, i) => (
+              <span
+                key={i}
+                className="w-1.5 h-1.5 rounded-full bg-text-3/30"
+              />
+            ))}
+          </span>
+          <span className="ml-2 opacity-60">← glisser →</span>
+        </motion.div>
+
+        {/* Stats */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 mt-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.7, duration: 0.6 }}
+            className="p-8 rounded-2xl border border-border/30 bg-surface/20 backdrop-blur-sm"
+          >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                { value: 5, suffix: "", label: "Réalisations" },
+                { value: 36, suffix: "+", label: "Mois cumulés" },
+                { value: 7, suffix: "", label: "Organisations" },
+                { value: 3, suffix: "", label: "Domaines" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: 0.9 + i * 0.1, duration: 0.4 }}
+                  className="text-center"
+                >
+                  <div className="text-4xl font-bold text-text-1 mb-1">
+                    <AnimatedCounter value={stat.value} suffix={stat.suffix} animate={isInView} />
+                  </div>
+                  <div className="text-sm text-text-2">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
-            <div className="text-center">
-              <div
-                className={`text-4xl font-bold ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}
-              >
-                24
-              </div>
-              <div
-                className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
-              >
-                Mois au total
-              </div>
-            </div>
-            <div className="text-center">
-              <div
-                className={`text-4xl font-bold ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}
-              >
-                4
-              </div>
-              <div
-                className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
-              >
-                Entreprises
-              </div>
-            </div>
-            <div className="text-center">
-              <div
-                className={`text-4xl font-bold ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-2`}
-              >
-                2+
-              </div>
-              <div
-                className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
-              >
-                Domaines
-              </div>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-
-      <style>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 };

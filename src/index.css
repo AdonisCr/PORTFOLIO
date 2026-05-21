@@ -1,15 +1,42 @@
+:root {
+  --color-base:      #0a0f2e;
+  --color-surface:   #0e1538;
+  --color-elevated:  #141d4a;
+  --color-card:      #1a2557;
+
+  --color-border:    #2a3a6a;
+  --color-border-lg: #3a4a7a;
+
+  --color-accent:    #3b82f6;
+  --color-accent-lt: #60a5fa;
+  --color-accent-bg: rgba(59,130,246,0.12);
+
+  --color-text-1:    #ffffff;
+  --color-text-2:    #e2e8f0;
+  --color-text-3:    #94a3b8;
+
+  --color-success:   #10b981;
+  --color-warning:   #f59e0b;
+  --color-error:     #ef4444;
+  --color-info:      #3b82f6;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Animations personnalisées */
+@layer base {
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Archivo', sans-serif;
+  }
+}
+
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
 
 .animate-float {
@@ -31,72 +58,79 @@
   animation: gradient 3s ease infinite;
 }
 
-
-/* ============================================
-   STYLES OPTIMISÉS POUR L'IMAGE DE PROFIL
-   À ajouter à votre fichier index.css existant
-   ============================================ */
-
-/* Animation de flottement pour les symboles de code */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  padding: 12px 24px;
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-/* Animation de gradient pour le texte */
-@keyframes gradient {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+.shimmer-once {
+  animation: shimmer 1.5s ease-out forwards;
 }
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient 3s ease infinite;
+.cursor-main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
 }
 
-/* ============================================
-   EFFETS POUR L'IMAGE - THÈME SOMBRE
-   ============================================ */
-
-.profile-image-dark {
-  /* Effet glow plus prononcé en mode sombre */
-  transition: all 0.5s ease;
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
 }
 
-/* Au hover, l'effet s'intensifie */
-.group:hover .profile-image-dark {
-  filter: brightness(1.1) contrast(1.15) drop-shadow(0 0 50px rgba(168, 85, 247, 0.6)) drop-shadow(0 0 100px rgba(236, 72, 153, 0.4)) !important;
+.cursor-main.hovering {
+  width: 24px;
+  height: 24px;
+  background: #60a5fa;
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.8);
 }
 
-/* ============================================
-   EFFETS POUR L'IMAGE - THÈME CLAIR
-   ============================================ */
-
-.profile-image-light {
-  /* Ombre douce et naturelle pour le thème clair */
-  transition: all 0.5s ease;
+.cursor-trail.hovering {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(96, 165, 250, 0.5);
 }
 
-/* Au hover, l'ombre s'intensifie légèrement */
-.group:hover .profile-image-light {
-  filter: brightness(1.05) contrast(1.08) saturate(1.15) drop-shadow(0 20px 50px rgba(0, 0, 0, 0.25)) !important;
+@media (hover: none) {
+  .cursor-main, .cursor-trail { display: none; }
 }
-
-/* ============================================
-   ACCESSIBILITÉ - REDUCED MOTION
-   ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
@@ -106,24 +140,21 @@
   .animate-ping {
     animation: none;
   }
-  
-  .profile-image-dark,
-  .profile-image-light {
-    transition: none;
-  }
 }
 
-/* ============================================
-   RESPONSIVE - MOBILE OPTIMIZATIONS
-   ============================================ */
-
 @media (max-width: 768px) {
-  /* Réduire légèrement l'intensité des effets sur mobile */
   .profile-image-dark {
-    filter: brightness(1.03) contrast(1.08) drop-shadow(0 0 30px rgba(168, 85, 247, 0.4)) drop-shadow(0 0 60px rgba(236, 72, 153, 0.2)) !important;
+    filter: brightness(1.03) contrast(1.08) drop-shadow(0 0 30px rgba(59, 130, 246, 0.4)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.2)) !important;
   }
-  
+
   .profile-image-light {
     filter: brightness(1.02) contrast(1.05) saturate(1.08) drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15)) !important;
   }
+}
+
+.profile-hero-img {
+  filter: grayscale(100%) brightness(0.9) contrast(1.1) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+}
+.group:hover .profile-hero-img {
+  filter: brightness(1.08) contrast(1.12) drop-shadow(0 0 40px rgba(59, 130, 246, 0.4)) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
 }
