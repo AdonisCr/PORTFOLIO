@@ -1,31 +1,59 @@
-import { Heart, ArrowUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
+/** Pages qui tiennent dans un seul écran : pas de signature flottante. */
+const FULLSCREEN_ROUTES = ["/", "/contact"];
+
+/**
+ * Monogramme discret ancré en bas à droite de l'écran.
+ * Il remplace l'ancien pied de page (paragraphe « Fait avec… »,
+ * copyright et bouton « retour en haut »).
+ * Il n'apparaît que sur les pages qui défilent, jamais sur l'accueil
+ * ni sur le contact (pages plein écran).
+ */
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const { pathname } = useLocation();
+  const [visible, setVisible] = useState(false);
+
+  const isFullscreenPage = FULLSCREEN_ROUTES.includes(pathname);
+
+  useEffect(() => {
+    if (isFullscreenPage) {
+      setVisible(false);
+      return;
+    }
+
+    const handleScroll = () => setVisible(window.scrollY > 160);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isFullscreenPage, pathname]);
+
+  if (isFullscreenPage) return null;
 
   return (
-    <footer className="py-6 px-4 border-t bg-base border-border" role="contentinfo">
-      <div className="max-w-7xl mx-auto flex flex-col items-center gap-3">
-        <button
-          onClick={scrollToTop}
-          className="p-2 rounded-full transition-all duration-300 hover:scale-110 text-text-3 hover:text-accent cursor-pointer"
-          aria-label="Retour en haut de page"
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          aria-hidden="true"
+          className="fixed bottom-6 right-5 sm:right-7 z-40 hidden md:flex flex-col items-center gap-3 pointer-events-none select-none"
         >
-          <ArrowUp size={20} />
-        </button>
-
-        <p className="text-sm text-text-3 flex items-center gap-1">
-          Fait avec <Heart size={14} className="text-red-500" aria-hidden="true" /> par{" "}
-          <span className="text-text-1 font-medium">Adonis OUSSOU</span>
-        </p>
-
-        <p className="text-xs text-text-3">
-          &copy; {new Date().getFullYear()} &mdash; Tous droits r&eacute;serv&eacute;s
-        </p>
-      </div>
-    </footer>
+          <span className="w-px h-9 bg-gradient-to-t from-transparent via-border to-accent/60" />
+          <span className="w-11 h-11 rounded-full border border-border/70 bg-surface/80 backdrop-blur-md shadow-sm flex items-center justify-center text-[11px] font-bold tracking-tight text-accent">
+            AO
+          </span>
+          <span className="text-[9px] font-mono tracking-[0.2em] text-text-3">
+            {new Date().getFullYear()}
+          </span>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -1,24 +1,79 @@
-:root {
-  --color-base:      #0a0f2e;
-  --color-surface:   #0e1538;
-  --color-elevated:  #141d4a;
-  --color-card:      #1a2557;
+:root,
+html.dark {
+  --color-base:      #090d16;
+  --color-surface:   #0f1523;
+  --color-elevated:  #151d30;
+  --color-card:      #151d30;
 
-  --color-border:    #2a3a6a;
-  --color-border-lg: #3a4a7a;
+  --color-border:    #172033;
+  --color-border-lg: #1e293b;
+
+  /* Voile de la navigation mobile : toujours sombre, même en thème clair */
+  --color-veil-rgb:  5 3 16;
 
   --color-accent:    #3b82f6;
   --color-accent-lt: #60a5fa;
-  --color-accent-bg: rgba(59,130,246,0.12);
+  --color-accent-bg: rgba(59,130,246,0.1);
+  /* Bleu « plein » des boutons : garde un texte blanc lisible (ratio 4.8:1) */
+  --color-accent-solid:       #2563eb;
+  --color-accent-solid-hover: #1d4ed8;
 
   --color-text-1:    #ffffff;
-  --color-text-2:    #e2e8f0;
-  --color-text-3:    #94a3b8;
+  --color-text-2:    #f1f5f9;
+  --color-text-3:    #cbd5e1;
+
+  --color-base-rgb:      9 13 22;
+  --color-surface-rgb:   15 21 35;
+  --color-elevated-rgb:  21 29 48;
+  --color-card-rgb:      21 29 48;
+  --color-border-rgb:    23 32 51;
+  --color-accent-rgb:    59 130 246;
+  --color-accent-lt-rgb: 96 165 250;
+  --color-accent-solid-rgb:       37 99 235;
+  --color-accent-solid-hover-rgb: 29 78 216;
+  --color-text-1-rgb:    255 255 255;
+  --color-text-2-rgb:    241 245 249;
+  --color-text-3-rgb:    203 213 225;
 
   --color-success:   #10b981;
   --color-warning:   #f59e0b;
   --color-error:     #ef4444;
   --color-info:      #3b82f6;
+  color-scheme: dark;
+}
+
+html.light {
+  --color-base:      #f8fafc;
+  --color-surface:   #ffffff;
+  --color-elevated:  #f1f5f9;
+  --color-card:      #ffffff;
+
+  --color-border:    #e2e8f0;
+  --color-border-lg: #cbd5e1;
+
+  --color-accent:    #2563eb;
+  --color-accent-lt: #1d4ed8;
+  --color-accent-bg: rgba(37,99,235,0.08);
+  --color-accent-solid:       #2563eb;
+  --color-accent-solid-hover: #1d4ed8;
+
+  --color-text-1:    #05080f;
+  --color-text-2:    #1a2432;
+  --color-text-3:    #3a4757;
+
+  --color-base-rgb:      248 250 252;
+  --color-surface-rgb:   255 255 255;
+  --color-elevated-rgb:  241 245 249;
+  --color-card-rgb:      255 255 255;
+  --color-border-rgb:    226 232 240;
+  --color-accent-rgb:    37 99 235;
+  --color-accent-lt-rgb: 29 78 216;
+  --color-accent-solid-rgb:       37 99 235;
+  --color-accent-solid-hover-rgb: 29 78 216;
+  --color-text-1-rgb:    5 8 15;
+  --color-text-2-rgb:    26 36 50;
+  --color-text-3-rgb:    58 71 87;
+  color-scheme: light;
 }
 
 @tailwind base;
@@ -26,8 +81,21 @@
 @tailwind utilities;
 
 @layer base {
+  *, ::before, ::after {
+    border-color: rgb(var(--color-border-rgb) / 0.65);
+  }
   body {
     font-family: 'Space Grotesk', sans-serif;
+    background-color: var(--color-base);
+    color: var(--color-text-1);
+    /* Texte un peu plus épais : reste net sur les écrans PC / tablette */
+    font-weight: 500;
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* Les paragraphes ne descendent jamais sous une graisse « medium » */
+  p, li {
+    font-weight: 500;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Archivo', sans-serif;
@@ -65,7 +133,7 @@
   transform: translateX(-50%);
   z-index: 10000;
   padding: 12px 24px;
-  background: var(--color-accent);
+  background: var(--color-accent-solid);
   color: #fff;
   font-weight: 600;
   border-radius: 0 0 8px 8px;
@@ -92,7 +160,7 @@
   left: 0;
   width: 12px;
   height: 12px;
-  background: #fff;
+  background: var(--color-accent-solid);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -132,7 +200,23 @@
   .cursor-main, .cursor-trail { display: none; }
 }
 
+/* Repère de défilement : les titres ne passent pas sous la barre du haut */
+#hero, #about, #skills, #experience, #projects, #contact {
+  scroll-margin-top: 6rem;
+}
+
+/* Navigation mobile : les pilules montent depuis le bouton à l'ouverture.
+   À la fermeture, seule l'opacité change (simple fondu). */
+@keyframes index-rise {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.index-pill-open {
+  animation: index-rise 180ms ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .index-pill-open { animation: none; }
   .animate-float,
   .animate-gradient,
   .animate-pulse,
@@ -153,8 +237,68 @@
 }
 
 .profile-hero-img {
-  filter: grayscale(100%) brightness(0.9) contrast(1.1) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+  filter: grayscale(100%) brightness(0.95) contrast(1.08) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35));
+}
+html.light .profile-hero-img {
+  filter: grayscale(85%) brightness(1.02) contrast(1.05) drop-shadow(0 15px 30px rgba(15, 23, 42, 0.15));
 }
 .group:hover .profile-hero-img {
-  filter: brightness(1.08) contrast(1.12) drop-shadow(0 0 40px rgba(59, 130, 246, 0.4)) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+  filter: brightness(1.06) contrast(1.1) drop-shadow(0 0 40px rgba(59, 130, 246, 0.35)) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35));
+}
+
+/* ---------------------------------------------------------------------------
+   Hero : adaptation aux écrans peu hauts (portables 13", 1024x600, etc.)
+   On réduit les espacements et la typographie pour que tout reste visible
+   dans un seul écran, sans jamais passer sous la barre de navigation.
+--------------------------------------------------------------------------- */
+@media (min-width: 1024px) and (max-height: 740px) {
+  #hero.hero-section {
+    padding-top: 5.5rem;
+    padding-bottom: 1rem;
+  }
+
+  #hero .hero-copy > * + * {
+    margin-top: 0.65rem;
+  }
+
+  #hero .hero-copy h1 {
+    font-size: clamp(2.1rem, 4vw, 3.2rem);
+  }
+
+  #hero .hero-copy .hero-signature {
+    font-size: 1.05rem;
+  }
+
+  #hero .hero-copy .hero-intro {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  #hero .hero-copy .hero-actions a {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  #hero .hero-img {
+    height: 64vh;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Contact : plein écran seulement si l'écran est assez haut.
+   Sur les écrans courts, la page redevient défilante pour ne rien couper.
+--------------------------------------------------------------------------- */
+@media (max-height: 760px) {
+  #contact.contact-section {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    padding-top: 6rem;
+    padding-bottom: 2.5rem;
+  }
+
+  #contact.contact-section h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+  }
 }

@@ -32,7 +32,7 @@ class ErrorBoundary extends Component<Props, State> {
               </p>
               <button
                 onClick={() => window.location.reload()}
-                className="px-8 py-4 rounded-2xl bg-accent text-white font-semibold hover:bg-accent-light transition-all cursor-pointer"
+                className="px-8 py-4 rounded-2xl bg-accent-solid text-white font-semibold hover:bg-accent-solid-hover transition-all cursor-pointer"
               >
                 Recharger la page
               </button>

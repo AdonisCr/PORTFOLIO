@@ -44,7 +44,7 @@ const NotFound = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               to="/"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-accent text-text-1 font-semibold text-lg hover:bg-accent-light transition-all duration-300 hover:shadow-lg hover:shadow-accent/30"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-accent-solid text-white font-semibold text-lg hover:bg-accent-solid-hover transition-all duration-300 hover:shadow-lg hover:shadow-accent/30"
               aria-label="Retour à l'accueil"
             >
               <Home size={22} aria-hidden="true" />
@@ -69,13 +69,17 @@ const NotFound = () => {
           className="mt-16 flex items-center justify-center gap-2 text-text-3"
         >
           <Search size={18} aria-hidden="true" />
-          <span className="text-sm">Contactez-moi pour toute question</span>
+          <span className="text-sm">
+            Une question ?{" "}
+            <Link
+              to="/contact"
+              className="font-semibold text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-base rounded"
+            >
+              Contactez-moi
+            </Link>
+          </span>
         </motion.div>
       </motion.div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-text-3 text-sm">
-        &copy; {new Date().getFullYear()} Adonis OUSSOU. Tous droits r&eacute;serv&eacute;s.
-      </div>
     </div>
   );
 };
